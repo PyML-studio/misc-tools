@@ -15,12 +15,15 @@ def get_transcription(filename):
 
 def main(args):
     assert os.path.exists(args.input_audiofile)
+    assert not os.path.exists(args.output)
     text = get_transcription(args.input_audiofile)
-    print(text)
-   
+
+    with open(args.output, 'wt') as f:
+        f.write(f'{text}\n')
 
 if __name__ == '__main__':
    parser = argparse.ArgumentParser()
    parser.add_argument('input_audiofile', type=str)
+   parser.add_argument('output', type=str)
    args = parser.parse_args()
    main(args)
