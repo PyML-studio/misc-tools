@@ -1,4 +1,5 @@
 import os
+import argparse
 import openai
 
 # setup the API key
@@ -11,3 +12,15 @@ def get_transcription(filename):
         transcript = openai.Audio.translate("whisper-1", fp)
     return transcript['text']
 
+
+def main(args):
+    assert os.path.exists(args.input_audiofile)
+    text = get_transcription(args.input_audiofile)
+    print(text)
+   
+
+if __name__ == '__main__':
+   parser = argparse.ArgumentParser()
+   parser.add_argument('input_audiofile', type=str)
+   args = parser.parse_args()
+   main(args)
